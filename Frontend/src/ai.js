@@ -15,7 +15,6 @@ export const startAssistant = async (firstName, lastName, email, phone) => {
     }
 
 
-
     return await vapi.start(assistantId)
 }
 
