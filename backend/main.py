@@ -17,5 +17,22 @@ def fetch_call_details(call_id):
     response = requests.get(url, headers=headers)
     return response.json()
 
-fetch_call_details("")
+@app.route("/call-details", methods=["GET"])
+def get_call_details():
+    call_id = request.args.get("call_id")
+    if not call_id:
+        return jsonify({"error": "call_id is required"}), 400
+
+    try:
+        response = fetch_call_details(call_id)
+        print(response)
+        summary = response.get("summary")
+        analysis = response.get("analysis")
+        return jsonify({"analysis": analysis, "summary": summary}),200 
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+if __name__ == "__main__":
+    app.run(debug=True)
 
