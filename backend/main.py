@@ -1,8 +1,13 @@
 import os
 import requests
 from dotenv import load_dotenv
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 load_dotenv()
+
+app = Flask(__name__)
+CORS(app)
 
 def fetch_call_details(call_id):
     url = f"https://api.vapi.ai/call/{call_id}"
